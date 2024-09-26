@@ -222,6 +222,28 @@ app.get('/hotels/sort/pricing', (req, res) => {
   res.json({ hotels: result });
 });
 
+function sortRatingAsc(result1,result2){
+  return result1.rating-result2.rating
+}
+function sortRatingDesc(result1,result2){
+  return result2.rating-result1.rating
+}
+
+
+
+app.get('/hotels/sort/rating',(req,res)=>{
+  let rating=req.query.rating;
+  let result=hotels.slice();
+  if(rating=='low-to-high'){
+    result.sort(sortRatingAsc)
+  }else if(rating=='high-to-low'){
+    result.sort(sortRatingDesc)
+  }
+  res.json({hotels:result})
+})
+
+
+
 function sortAscendingReview(hotel1, hotel2) {
   return hotel1.reviews - hotel2.reviews;
 }
